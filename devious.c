@@ -24,11 +24,9 @@ char* lofftoa(loff_t val)
 {
 	static char buf[64] = {0};
 	int i = 62;
-	//printk(KERN_NOTICE "lofftoa val: %lli", val);
 	if(val == 0) return "0";
 	for(; val && i ; --i, val /= 16) {
 		buf[i] = "0123456789abcdef"[val % 16];
-		//printk(KERN_NOTICE "buf[%i]: %s", i, &buf[i]);
 	}
 
 	return &buf[i+1];
@@ -64,12 +62,6 @@ static ssize_t device_file_read(
 		, loff_t *possition)
 {
 	char* junk = {call_pihelper(*possition)};
-	char* boom = {"Hello!"};
-	printk(KERN_NOTICE "Boom? :: %s", boom);
-	//printk(KERN_NOTICE "size of userbuffer: %i \n", sizeof(user_buffer));
-	//printk(KERN_NOTICE "PiCharDrv Read: offset: %lli, bytecount: %i\n"
-	//		, *possition
-	//		, count );
 
 	if(*possition >= INT_MAX) //still pretty big
 	{
